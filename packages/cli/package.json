@@ -1,0 +1,74 @@
+{
+  "name": "@tonic-foundation/cli",
+  "version": "0.0.2",
+  "description": "Tonic DEX client",
+  "author": "tonic-foundation",
+  "bin": {
+    "tonic": "./bin/run"
+  },
+  "homepage": "https://github.com/tonic-foundation/tonic-sdk-ts",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "tonic-foundation/tonic-sdk-ts",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^1.6.4",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.0.1",
+    "@tonic-foundation/token": "0.0.2",
+    "@tonic-foundation/tonic": "0.0.2",
+    "@tonic-foundation/utils": "0.0.2",
+    "bn.js": "^5.2.0",
+    "cli-table": "^0.3.11",
+    "near-api-js": "^0.44.2"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2",
+    "@types/bn.js": "^5.1.0",
+    "@types/chai": "^4",
+    "@types/cli-table": "^0.3.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.9.4",
+    "chai": "^4.3.6",
+    "eslint": "^8.13.0",
+    "eslint-config-oclif": "^4.0.0",
+    "eslint-config-oclif-typescript": "^1.0.2",
+    "mocha": "^9.2.2",
+    "oclif": "^3.0.1",
+    "shx": "^0.3.4",
+    "ts-node": "^10.7.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3"
+  },
+  "oclif": {
+    "bin": "tonic",
+    "dirname": "tonic",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md",
+    "run-dev": "bin/dev"
+  },
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "bugs": "https://github.com/tonicfoundation/tonic-sdk-js/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}

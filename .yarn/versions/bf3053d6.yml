@@ -1,0 +1,8 @@
+undecided:
+  - root-workspace-0b6124
+  - "@tonic-foundation/tonic-cli"
+  - "@tonic-foundation/config"
+  - gas-tester
+  - "@tonic-foundation/storage"
+  - "@tonic-foundation/token"
+  - "@tonic-foundation/tonic"
