@@ -1,8 +1,9 @@
 import { Market } from '../src/market';
 import { MarketViewV1 } from '../src/types/v1';
 
-describe('Market tests', () => {
+describe('batch operation tests', () => {
   it('generates batch actions', () => {
+    // this is just a typecheck
     const market = new Market(null as any, 'market-id', {
       base_token: {
         decimals: 8,
@@ -26,19 +27,19 @@ describe('Market tests', () => {
     batch.cancelAllOrders();
     for (let i = 0; i < 30; i++) {
       batch.newOrder({
-        maxQuantity: i * 0.01,
+        quantity: i * 0.01,
         limitPrice: 40000 + 100 * i,
         orderType: 'Limit',
         side: 'Sell',
       });
       batch.newOrder({
-        maxQuantity: i * 0.01,
+        quantity: i * 0.01,
         limitPrice: 40000 + 100 * i,
         orderType: 'Limit',
         side: 'Sell',
       });
     }
 
-    console.log(JSON.stringify(batch.prepare(), null, 2));
+    JSON.stringify(batch.prepare(), null, 2);
   });
 });
