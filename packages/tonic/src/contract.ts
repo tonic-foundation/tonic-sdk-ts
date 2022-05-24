@@ -17,7 +17,7 @@ export type TonicContract = ContractWithMethods<
 const viewMethods = [
   'get_balances',
   'get_market',
-  'get_markets',
+  'list_markets',
   'get_open_orders',
   'get_orderbook',
 ] as const;

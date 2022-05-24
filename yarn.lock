@@ -853,6 +853,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tonic-foundation/config@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@tonic-foundation/config@npm:0.0.2"
+  dependencies:
+    near-api-js: ^0.44.2
+  checksum: 0923817dba38c20f1769b71aa3fdff5dbb2fdc4fef9138f82b7cd3a2e7698e02c474ebaf04e0aa1e28925d78464659e5fe61f8020cc93ce97eb849e144e005bf
+  languageName: node
+  linkType: hard
+
 "@tonic-foundation/storage@npm:0.0.2":
   version: 0.0.2
   resolution: "@tonic-foundation/storage@npm:0.0.2"
@@ -878,6 +887,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tonic-foundation/tonic@workspace:packages/tonic"
   dependencies:
+    "@tonic-foundation/config": 0.0.2
     "@tonic-foundation/storage": 0.0.2
     "@tonic-foundation/token": 0.0.2
     "@tonic-foundation/utils": 0.0.2
