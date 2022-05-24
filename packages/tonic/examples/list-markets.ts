@@ -29,9 +29,6 @@ async function getAccount() {
   return near.account(NEAR_ACCOUNT_ID);
 }
 
-/**
- * This example cancels all open orders and places 60 new ones.
- */
 async function main() {
   const account = await getAccount();
   const tonic = new Tonic(account, TONIC_CONTRACT_ID);
