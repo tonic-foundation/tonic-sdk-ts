@@ -5,7 +5,6 @@ import { Tonic } from '../src';
 
 const NEAR_ACCOUNT_ID = requireEnv('NEAR_ACCOUNT_ID');
 const TONIC_CONTRACT_ID = requireEnv('TONIC_CONTRACT_ID');
-const MARKET_ID = requireEnv('MARKET_ID');
 
 function requireEnv(name: string) {
   const val = process.env[name];
@@ -30,15 +29,16 @@ async function getAccount() {
   return near.account(NEAR_ACCOUNT_ID);
 }
 
+/**
+ * This example cancels all open orders and places 60 new ones.
+ */
 async function main() {
   const account = await getAccount();
   const tonic = new Tonic(account, TONIC_CONTRACT_ID);
 
-  console.log('Fetching market');
-  const market = await tonic.getMarket(MARKET_ID);
+  const markets = await tonic.listMarkets();
 
-  console.log(market);
-  console.log(market.inner);
+  console.log(JSON.stringify(markets, null, '  '));
 }
 
 main();

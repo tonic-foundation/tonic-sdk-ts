@@ -329,11 +329,10 @@ export class Tonic {
   }
 
   /**
-   * @ignore
+   * List markets in order of creation.
    */
-  async getMarkets(offset = 0, limit = 100): Promise<MarketViewV1[]> {
-    throw new Error('unimplemented');
-    // return await this.contract.get_markets(offset, limit);
+  async listMarkets(offset = 0, limit = 100): Promise<MarketViewV1[]> {
+    return await this.contract.list_markets({ from_index: offset, limit });
   }
 
   /**
