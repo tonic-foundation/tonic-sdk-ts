@@ -77,24 +77,6 @@ async function main() {
   // Send the transaction. All open orders in the market will be canceled and 60
   // new ones will be placed atomically.
   logTx((await tonic.executeBatch(batch)).executionOutcome);
-
-  // TODO: other examples
-
-  /**
-   * Example 2: Batch operations in multiple markets
-   *
-   * In this example, we place a sequence of market orders in multiple markets.
-   * This may be useful for
-   */
-
-  /**
-   * Example 3: Batch operations in multiple markets with a temporary user
-   * account
-   *
-   * In this example, we create a user account, place a sequence of market
-   * orders in multiple markets, then unregister the account. This may be useful
-   * for routing orders from swap-like frontends to get the best price.
-   */
 }
 
 main();

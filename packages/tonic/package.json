@@ -17,6 +17,7 @@
     "example:get-market": "ts-node examples/get-market.ts"
   },
   "devDependencies": {
+    "@tonic-foundation/config": "0.0.2",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bn.js": "^5.1.0",
     "@types/chai": "^4.3.1",

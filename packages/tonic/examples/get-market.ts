@@ -1,6 +1,5 @@
 import { getNearConfig } from '@tonic-foundation/config';
 import { keyStores, Near } from 'near-api-js';
-import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
 import { homedir } from 'os';
 import { Tonic } from '../src';
 
@@ -22,13 +21,6 @@ async function getKeystore() {
   const credentialsPath = require('path').join(HOME_DIR, CREDENTIALS_DIR);
 
   return new keyStores.UnencryptedFileSystemKeyStore(credentialsPath);
-}
-
-function logTx(outcome: FinalExecutionOutcome) {
-  const txId = outcome.transaction_outcome.id;
-  console.log(`Transaction ID: ${txId}`);
-  const explorerLink = `https://explorer.testnet.near.org/transactions/${txId}`;
-  console.log(`View in the explorer: ${explorerLink}`);
 }
 
 async function getAccount() {
@@ -54,6 +46,7 @@ async function main() {
   console.log('Fetching market');
   const market = await tonic.getMarket(MARKET_ID);
 
+  console.log(market);
   console.log(market.inner);
 }
 
