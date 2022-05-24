@@ -5,7 +5,7 @@ import BaseCommand from '../base';
 import {
   getMidmarketPriceNumber,
   NumberL2Order,
-} from '@tonic-foundation/tonic/lib/market';
+} from '@tonic-foundation/tonic';
 import { ftOrNativeNearMetadata } from '@tonic-foundation/token';
 
 export default class GetMarket extends BaseCommand {

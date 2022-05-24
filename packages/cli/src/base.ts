@@ -9,8 +9,9 @@ import { Tonic } from '@tonic-foundation/tonic';
 
 import {
   getNearConfig,
-  ConfigWithExplorerUrl,
-} from '@tonic-foundation/tonic/lib/util/getNearConfig';
+  NearConnectConfig,
+  NearEnv
+} from '@tonic-foundation/config';
 
 const getKeystore = async () => {
   const HOME_DIR = homedir();
@@ -25,6 +26,7 @@ export default abstract class BaseCommand extends Command {
     networkId: Flags.string({
       default: 'testnet',
       env: 'NEAR_ENV',
+      options: ['mainnet', 'testnet', 'localnet']
     }),
     accountId: Flags.string({
       env: 'NEAR_ACCOUNT_ID',
@@ -42,13 +44,13 @@ export default abstract class BaseCommand extends Command {
 
   tonic!: Tonic;
 
-  connectConfig!: ConfigWithExplorerUrl;
+  connectConfig!: NearConnectConfig;
 
   async init() {
     const { flags } = await this.parse(this.constructor as typeof BaseCommand);
     this.globalFlags = flags;
 
-    const connectConfig = getNearConfig(flags.networkId);
+    const connectConfig = getNearConfig(flags.networkId as NearEnv);
     this.connectConfig = connectConfig;
 
     const keyStore = await getKeystore();

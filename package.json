@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "cli": "yarn workspace @tonic-foundation/tonic-cli",
+    "cli": "yarn workspace @tonic-foundation/cli",
     "tonic": "yarn workspace @tonic-foundation/tonic",
     "build:all": "yarn workspaces foreach -pt run build",
     "version:all": "yarn workspaces foreach version",
@@ -17,6 +17,6 @@
     "trailingComma": "es5",
     "singleQuote": true
   },
-  "version": "0.3.16",
+  "version": "0.0.3",
   "packageManager": "yarn@3.2.0"
 }
