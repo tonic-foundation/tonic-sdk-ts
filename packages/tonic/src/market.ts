@@ -201,7 +201,7 @@ export class Market {
         : undefined,
       quantity: this.quantityNumberToBn(params.quantity),
       max_spend: params.maxSpend
-        ? this.priceNumberToBn(params.maxSpend)
+        ? this.priceNumberToBn(params.maxSpend, false, false)
         : undefined,
       client_id:
         typeof params.clientId === 'undefined' ? null : params.clientId, // potentially 0
@@ -238,10 +238,10 @@ export class Market {
   }
 
   /** @ignore */
-  withNumberValues(orderboook: Orderbook): NumberOrderbook {
+  withNumberValues(orderbook: Orderbook): NumberOrderbook {
     // give access to `this` inside the mapped function
-    const asks = orderboook.asks.map(this.toNumberL2Order, this);
-    const bids = orderboook.bids.map(this.toNumberL2Order, this);
+    const asks = orderbook.asks.map(this.toNumberL2Order, this);
+    const bids = orderbook.bids.map(this.toNumberL2Order, this);
 
     return { bids, asks };
   }
@@ -253,9 +253,24 @@ export class Market {
   /**
    * Given price as a number, return a decimal-padded BN optionally floored to
    * the nearest quote lot size.
+   *
+   * If round_trailing_decimals_up===true, the least
+   * significant digit + trailing digits are rounded up their ceiling.
    */
-  priceNumberToBn(price: number, floor = true): BN {
-    const priceBn = decimalToBn(price, this.quoteDecimals);
+  priceNumberToBn(price: number, floor = true, round_trailing_decimals_up = false): BN {
+    let decimals = this.quoteDecimals;
+    let priceBn = decimalToBn(price, decimals);
+
+    if (round_trailing_decimals_up && decimals < 16) {
+      // Compare BNs at the highest level of precision available
+      // provided by 'number' type (16 digits after decimal point).
+      let preciseBn = decimalToBn(price, 16);
+      let power = new BN(10).pow(new BN((16 - decimals)));
+      if (priceBn.mul(power).lt(preciseBn)) {
+        priceBn = priceBn.add(new BN(1));
+      }
+    }
+
     if (floor) {
       return floorToBn(priceBn, new BN(this.quoteLotSize));
     }
