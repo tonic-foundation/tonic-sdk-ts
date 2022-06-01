@@ -20,6 +20,7 @@
     "@oclif/core": "^1.6.4",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
+    "@tonic-foundation/config": "^0.0.2",
     "@tonic-foundation/token": "0.0.2",
     "@tonic-foundation/tonic": "0.0.3",
     "@tonic-foundation/utils": "0.0.2",

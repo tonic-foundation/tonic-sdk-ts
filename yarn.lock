@@ -827,6 +827,7 @@ __metadata:
     "@oclif/plugin-help": ^5
     "@oclif/plugin-plugins": ^2.0.1
     "@oclif/test": ^2
+    "@tonic-foundation/config": ^0.0.2
     "@tonic-foundation/token": 0.0.2
     "@tonic-foundation/tonic": 0.0.3
     "@tonic-foundation/utils": 0.0.2
@@ -853,7 +854,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tonic-foundation/config@npm:0.0.2":
+"@tonic-foundation/config@npm:0.0.2, @tonic-foundation/config@npm:^0.0.2":
   version: 0.0.2
   resolution: "@tonic-foundation/config@npm:0.0.2"
   dependencies:
