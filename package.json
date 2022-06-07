@@ -9,7 +9,8 @@
     "tonic": "yarn workspace @tonic-foundation/tonic",
     "build:all": "yarn workspaces foreach -pt run build",
     "version:all": "yarn workspaces foreach version",
-    "publish:all": "npm publish --workspaces"
+    "publish:all": "npm publish --workspaces",
+    "docs:generate": "yarn typedoc --excludePrivate --includeVersion --out site/ packages/**/src/index.ts"
   },
   "prettier": {
     "arrowParens": "always",
@@ -18,5 +19,9 @@
     "singleQuote": true
   },
   "version": "0.0.3",
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.0",
+  "devDependencies": {
+    "typedoc": "^0.22.17",
+    "typescript": "^4.7.3"
+  }
 }
