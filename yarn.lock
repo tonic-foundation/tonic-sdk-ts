@@ -829,7 +829,7 @@ __metadata:
     "@oclif/test": ^2
     "@tonic-foundation/config": ^0.0.2
     "@tonic-foundation/token": 0.0.2
-    "@tonic-foundation/tonic": 0.0.3
+    "@tonic-foundation/tonic": 0.0.7
     "@tonic-foundation/utils": 0.0.2
     "@types/bn.js": ^5.1.0
     "@types/chai": ^4
@@ -884,7 +884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonic-foundation/tonic@0.0.3, @tonic-foundation/tonic@workspace:packages/tonic":
+"@tonic-foundation/tonic@0.0.7, @tonic-foundation/tonic@workspace:packages/tonic":
   version: 0.0.0-use.local
   resolution: "@tonic-foundation/tonic@workspace:packages/tonic"
   dependencies:
