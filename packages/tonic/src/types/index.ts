@@ -12,8 +12,8 @@ export interface OpenLimitOrder {
   id: string;
   limitPrice: BN;
   remainingQuantity: BN;
-  originalQuantity: BN;
-  timestamp: Date;
+  originalQuantity: BN | null;
+  timestamp: Date | null;
   side: OrderSide;
   clientId: number | null;
 }
@@ -23,8 +23,8 @@ export function toOpenLimitOrder(view: v1.OpenLimitOrderV1): OpenLimitOrder {
     id: view.id,
     limitPrice: new BN(view.limit_price),
     remainingQuantity: new BN(view.open_qty),
-    originalQuantity: new BN(view.original_qty),
-    timestamp: new Date(view.timestamp / 1000 / 1000),
+    originalQuantity: view.original_qty ? new BN(view.original_qty) : null,
+    timestamp: view.timestamp ? new Date(view.timestamp / 1000 / 1000) : null,
     side: view.side,
     clientId: view.client_id,
   };

@@ -324,6 +324,17 @@ export class Tonic {
     return raw.map(toOpenLimitOrder);
   }
 
+  async getOrder(
+    market_id: MarketId,
+    order_id: string
+  ): Promise<OpenLimitOrder> {
+    const raw = await this._contract.get_order<OpenLimitOrderV1>({
+      market_id,
+      order_id,
+    });
+    return toOpenLimitOrder(raw);
+  }
+
   async getMarket(marketId: MarketId): Promise<Market> {
     return await Market.load(this, marketId, this.contractId);
   }

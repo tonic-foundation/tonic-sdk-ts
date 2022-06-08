@@ -15,7 +15,8 @@
     "test:watch": "jest --watch",
     "example:batch": "ts-node examples/batch.ts",
     "example:get-market": "ts-node examples/get-market.ts",
-    "example:list-markets": "ts-node examples/list-markets.ts"
+    "example:list-markets": "ts-node examples/list-markets.ts",
+    "example:get-order": "ts-node examples/get-order.ts"
   },
   "devDependencies": {
     "@tonic-foundation/config": "0.0.2",

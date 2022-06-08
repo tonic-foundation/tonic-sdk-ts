@@ -20,6 +20,7 @@ const viewMethods = [
   'list_markets',
   'get_open_orders',
   'get_orderbook',
+  'get_order',
 ] as const;
 
 const changeMethods = [
