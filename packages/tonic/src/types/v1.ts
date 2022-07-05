@@ -161,6 +161,7 @@ export interface NewOrderParamsV1 {
   side: OrderSideV1;
   order_type: OrderTypeV1;
   client_id: number | null;
+  referrer_id?: string;
 }
 
 /**
@@ -248,11 +249,11 @@ export interface TokenInfo {
 export type TokenType =
   | { type: 'near' }
   | {
-      type: 'ft';
-      account_id: string;
-    }
+    type: 'ft';
+    account_id: string;
+  }
   | {
-      type: 'mft';
-      account_id: string;
-      subtoken_id: string;
-    };
+    type: 'mft';
+    account_id: string;
+    subtoken_id: string;
+  };
