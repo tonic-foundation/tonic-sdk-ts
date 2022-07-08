@@ -234,8 +234,24 @@ export class Tonic {
     });
   }
 
-  async swap(tokenId: string, amount: BN, params: SwapParamsV1) {
-    return await this.depositFt(tokenId, amount, params);
+  async swap(tokenId: string, amount: BN, swaps: SwapParamsV1[]) {
+    if (tokenId.toUpperCase() === 'NEAR') {
+      return await this.swapNear(amount, swaps);
+    } else {
+      return await this.depositFt(tokenId, amount, {
+        action: "Swap",
+        params: swaps
+      });
+    }
+  }
+
+  async swapNear(amount: BN, swaps: SwapParamsV1[]) {
+    return await this.functionCallWithOutcome({
+      methodName: 'swap_near',
+      args: { swaps },
+      attachedDeposit: amount,
+      gas: MAX_GAS,
+    });
   }
 
   /**
