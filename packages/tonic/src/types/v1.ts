@@ -135,7 +135,7 @@ export interface OrderResultV1 {
   base_cancelled_quantity: BN;
 }
 
-export type FTMessage = SwapParamsV1 | never;
+export type FTMessage = { "action": "Swap", params: SwapParamsV1[] } | never;
 
 /**
  * On-chain data type.

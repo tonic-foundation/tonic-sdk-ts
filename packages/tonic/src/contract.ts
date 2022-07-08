@@ -3,11 +3,11 @@ import { Account, Contract } from 'near-api-js';
 type ContractWithMethods<
   V extends ReadonlyArray<string> = [],
   C extends ReadonlyArray<string> = []
-> = Contract & {
-  [k in V[number]]: <T = any>(...args: any[]) => Promise<T>;
-} & {
-  [k in C[number]]: <T = any>(...args: any[]) => Promise<T>;
-};
+  > = Contract & {
+    [k in V[number]]: <T = any>(...args: any[]) => Promise<T>;
+  } & {
+    [k in C[number]]: <T = any>(...args: any[]) => Promise<T>;
+  };
 
 export type TonicContract = ContractWithMethods<
   typeof viewMethods,
@@ -31,6 +31,7 @@ const changeMethods = [
   'deposit_near',
   'withdraw_ft',
   'withdraw_near',
+  'swap_near'
 ] as const;
 
 export function getContract(account: Account, contractId: string) {
