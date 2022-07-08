@@ -1,4 +1,4 @@
-import { Account, Near, keyStores } from 'near-api-js';
+import { Account, ConnectConfig, Near, keyStores } from 'near-api-js';
 import { Command, Flags } from '@oclif/core';
 import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
 import { OutputFlags } from '@oclif/core/lib/interfaces';
@@ -9,9 +9,9 @@ import { Tonic } from '@tonic-foundation/tonic';
 
 import {
   getNearConfig,
-  NearConnectConfig,
   NearEnv
 } from '@tonic-foundation/config';
+import { getExplorerUrl } from './utils';
 
 const getKeystore = async () => {
   const HOME_DIR = homedir();
@@ -44,7 +44,7 @@ export default abstract class BaseCommand extends Command {
 
   tonic!: Tonic;
 
-  connectConfig!: NearConnectConfig;
+  connectConfig!: ConnectConfig;
 
   async init() {
     const { flags } = await this.parse(this.constructor as typeof BaseCommand);
@@ -64,11 +64,8 @@ export default abstract class BaseCommand extends Command {
   logTransaction(outcome: FinalExecutionOutcome) {
     const txId = outcome.transaction_outcome.id;
     this.log(`Transaction ID: ${txId}`);
-
-    if (this.connectConfig.explorerUrl) {
-      const explorerLink = `${this.connectConfig.explorerUrl}/transactions/${txId}`;
-      this.log(`View in the explorer: ${explorerLink}`);
-    }
+    const explorerLink = `${getExplorerUrl(this.connectConfig.networkId as NearEnv)}/${txId}`;
+    this.log(`View in the explorer: ${explorerLink}`);
   }
 }
 

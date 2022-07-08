@@ -19,7 +19,7 @@
     "example:get-order": "ts-node examples/get-order.ts"
   },
   "devDependencies": {
-    "@tonic-foundation/config": "0.0.2",
+    "@tonic-foundation/config": "^0.0.4",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bn.js": "^5.1.0",
     "@types/chai": "^4.3.1",
@@ -31,9 +31,9 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@tonic-foundation/storage": "0.0.2",
-    "@tonic-foundation/token": "0.0.2",
-    "@tonic-foundation/utils": "0.0.2",
+    "@tonic-foundation/storage": "^0.0.4",
+    "@tonic-foundation/token": "^0.0.4",
+    "@tonic-foundation/utils": "^0.0.4",
     "bn.js": "^5.2.0",
     "isomorphic-ws": "^4.0.1",
     "near-api-js": "^0.44.2",
