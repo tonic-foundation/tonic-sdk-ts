@@ -1,6 +1,6 @@
 {
   "name": "@tonic-foundation/cli",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Tonic DEX client",
   "author": "tonic-foundation",
   "bin": {
@@ -22,7 +22,7 @@
     "@oclif/plugin-plugins": "^2.0.1",
     "@tonic-foundation/config": "^0.0.2",
     "@tonic-foundation/token": "0.0.2",
-    "@tonic-foundation/tonic": "0.0.3",
+    "@tonic-foundation/tonic": "0.0.7",
     "@tonic-foundation/utils": "0.0.2",
     "bn.js": "^5.2.0",
     "cli-table": "^0.3.11",

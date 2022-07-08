@@ -19,15 +19,19 @@ export default class GetOpenOrders extends BaseCommand {
     const orders = await this.tonic.getOpenOrders(args.marketId);
     const market = await this.tonic.getMarket(args.marketId);
 
-    const bids = orders.filter(o => o.side === 'Buy').sort((a, b) => a.limitPrice.cmp(b.limitPrice));
-    const asks = orders.filter(o => o.side === 'Sell').sort((a, b) => b.limitPrice.cmp(a.limitPrice));
+    const bids = orders
+      .filter((o) => o.side === 'Buy')
+      .sort((a, b) => a.limitPrice.cmp(b.limitPrice));
+    const asks = orders
+      .filter((o) => o.side === 'Sell')
+      .sort((a, b) => b.limitPrice.cmp(a.limitPrice));
     const sortedOrders = [...asks, ...bids];
 
     const formatted = sortedOrders.map((o) => {
       return {
         id: o.id,
         open_quantity: market.quantityBnToNumber(o.remainingQuantity),
-        original_quantity: market.quantityBnToNumber(o.originalQuantity),
+        original_quantity: market.quantityBnToNumber(o.originalQuantity!),
         limit_price: market.priceBnToNumber(o.limitPrice),
         side: o.side,
         client_id: o.clientId,

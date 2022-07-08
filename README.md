@@ -7,5 +7,18 @@ Typescript client library for [Tonic](https://tonic.foundation). See the [API Re
 ```
 yarn
 yarn build:all
-yarn tonic test
+```
+
+## Building in Docker
+
+```
+docker buildx build .
+```
+
+## Publishing
+
+```
+yarn version:all <major|minor|patch>
+yarn build:all
+npm publish --access restricted --workspaces
 ```

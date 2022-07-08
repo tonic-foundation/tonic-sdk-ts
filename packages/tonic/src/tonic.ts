@@ -234,8 +234,24 @@ export class Tonic {
     });
   }
 
-  async swap(tokenId: string, amount: BN, params: SwapParamsV1) {
-    return await this.depositFt(tokenId, amount, params);
+  async swap(tokenId: string, amount: BN, swaps: SwapParamsV1[]) {
+    if (tokenId.toUpperCase() === 'NEAR') {
+      return await this.swapNear(amount, swaps);
+    } else {
+      return await this.depositFt(tokenId, amount, {
+        action: "Swap",
+        params: swaps
+      });
+    }
+  }
+
+  async swapNear(amount: BN, swaps: SwapParamsV1[]) {
+    return await this.functionCallWithOutcome({
+      methodName: 'swap_near',
+      args: { swaps },
+      attachedDeposit: amount,
+      gas: MAX_GAS,
+    });
   }
 
   /**
@@ -322,6 +338,20 @@ export class Tonic {
       account_id: this.account.accountId,
     });
     return raw.map(toOpenLimitOrder);
+  }
+
+  async getOrder(
+    market_id: MarketId,
+    order_id: string
+  ): Promise<OpenLimitOrder | null> {
+    const raw = await this._contract.get_order<OpenLimitOrderV1>({
+      market_id,
+      order_id,
+    });
+    if (!raw) {
+      return null;
+    }
+    return toOpenLimitOrder(raw);
   }
 
   async getMarket(marketId: MarketId): Promise<Market> {
