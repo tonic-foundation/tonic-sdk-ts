@@ -827,10 +827,11 @@ __metadata:
     "@oclif/plugin-help": ^5
     "@oclif/plugin-plugins": ^2.0.1
     "@oclif/test": ^2
-    "@tonic-foundation/config": ^0.0.4
-    "@tonic-foundation/token": ^0.0.4
+    "@tonic-foundation/config": ^0.0.5
+    "@tonic-foundation/storage": ^0.0.5
+    "@tonic-foundation/token": ^0.0.5
     "@tonic-foundation/tonic": 0.0.8
-    "@tonic-foundation/utils": ^0.0.4
+    "@tonic-foundation/utils": ^0.0.5
     "@types/bn.js": ^5.1.0
     "@types/chai": ^4
     "@types/cli-table": ^0.3.0
@@ -854,12 +855,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tonic-foundation/config@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@tonic-foundation/config@npm:0.0.4"
+"@tonic-foundation/config@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@tonic-foundation/config@npm:0.0.5"
   dependencies:
     near-api-js: ^0.44.2
-  checksum: e6d85056dbcd7fa14e7dd88d28f009ce5d1990efb646859b3118d9e1db41de7c2c59106923f2373b6fba62746b704d48cb54f22ba747d55f2b59a933f4787e9d
+  checksum: b7ef402613ed092a16b4da29c62f48b761d9f2307ec785d0b0d224cf97f33f8d54d651b4137f4290f1754085b52addf515a9e5a7ee36fe55833db8d35f79d7bf
   languageName: node
   linkType: hard
 
@@ -874,14 +875,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonic-foundation/storage@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@tonic-foundation/storage@npm:0.0.4"
+"@tonic-foundation/storage@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@tonic-foundation/storage@npm:0.0.5"
   dependencies:
-    "@tonic-foundation/utils": 0.0.4
+    "@tonic-foundation/utils": 0.0.5
     bn.js: ^5.2.0
     near-api-js: ^0.44.2
-  checksum: 1f36dfff82a4b15858bfe1f8322be3454a7c8fb9f69c63064a0376348114b59df335e02abc8d1f225c9f8b26398f5e19dfa3afcc788f97a285bd2829d7ce1948
+  checksum: 2066696ad24b904f4489891dfd520d2a08c635431bc94d6322ef9a632627677654346d2d1f171a05d24c7a6f1c80574cb881802b732daf7efb5d68a93e3fe029
   languageName: node
   linkType: hard
 
@@ -895,14 +896,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonic-foundation/token@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@tonic-foundation/token@npm:0.0.4"
+"@tonic-foundation/token@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@tonic-foundation/token@npm:0.0.5"
   dependencies:
-    "@tonic-foundation/utils": 0.0.4
+    "@tonic-foundation/utils": 0.0.5
     bn.js: ^5.2.1
     near-api-js: ^0.44.2
-  checksum: 8659fa67da7ae217135b6ad1255769afd3a9fb63a13bfc197c26e6ec35f3189a8aad96176808128b60ea040980ce378a6c956adcaa8f0ed060bf2f23405c884e
+  checksum: 34a78e11f4e232cfa1f2ff08e31c9848e2d89ad9f961a91d72b1afa16c1a72652c55c300511d96bf910a4424d9246fbe70b480218f262342fd322e87a2ab9d9c
   languageName: node
   linkType: hard
 
@@ -925,10 +926,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tonic-foundation/tonic@workspace:packages/tonic"
   dependencies:
-    "@tonic-foundation/config": ^0.0.4
-    "@tonic-foundation/storage": ^0.0.4
-    "@tonic-foundation/token": ^0.0.4
-    "@tonic-foundation/utils": ^0.0.4
+    "@tonic-foundation/config": ^0.0.5
+    "@tonic-foundation/storage": ^0.0.5
+    "@tonic-foundation/token": ^0.0.5
+    "@tonic-foundation/utils": ^0.0.5
     "@tsconfig/recommended": ^1.0.1
     "@types/bn.js": ^5.1.0
     "@types/chai": ^4.3.1
@@ -955,13 +956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonic-foundation/utils@npm:0.0.4, @tonic-foundation/utils@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@tonic-foundation/utils@npm:0.0.4"
+"@tonic-foundation/utils@npm:0.0.5, @tonic-foundation/utils@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@tonic-foundation/utils@npm:0.0.5"
   dependencies:
     bn.js: ^5.2.0
     near-api-js: ^0.44.2
-  checksum: a51e6588933be730aacdfd47356ae00e8e4996cdac29140d9bc5b693dfda9d6b592e0623037670da46f4c9a59a39929ad7d06cbdca84539c3f211afdec6197c8
+  checksum: bed4c01f8c9f763d1d694b7148f81752753815e0b459aa1bde1ad61450b10cc99e0f552a2b2db64f2d2965992e789db5f5db11f1d60d7cf23cbf6898a9c76ce3
   languageName: node
   linkType: hard
 
