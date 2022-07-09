@@ -227,10 +227,11 @@ export class Tonic {
     amount: BN,
     msg?: AnyExcept<FTMessage, string>
   ) {
+    const formattedMsg = !msg || typeof msg === 'string' ? msg : JSON.stringify(msg);
     return await ftTransferCall(this.account, tokenId, {
       receiverId: this.contractId,
       amount,
-      msg,
+      msg: formattedMsg,
     });
   }
 
