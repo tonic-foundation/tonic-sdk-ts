@@ -222,12 +222,8 @@ export class Tonic {
   /**
    * Deposit NEP-141 token.
    */
-  async depositFt(
-    tokenId: string,
-    amount: BN,
-    msg?: AnyExcept<FTMessage, string>
-  ) {
-    const formattedMsg = !msg || typeof msg === 'string' ? msg : JSON.stringify(msg);
+  async depositFt(tokenId: string, amount: BN, msg?: string | FTMessage) {
+    const formattedMsg = typeof msg === 'string' ? msg : JSON.stringify(msg);
     return await ftTransferCall(this.account, tokenId, {
       receiverId: this.contractId,
       amount,
@@ -240,8 +236,11 @@ export class Tonic {
       return await this.swapNear(amount, swaps);
     } else {
       return await this.depositFt(tokenId, amount, {
-        action: "Swap",
-        params: swaps
+        action: 'Swap',
+        params: swaps.map((s) => ({
+          ...s,
+          min_output_token: s.min_output_token?.toString(),
+        })),
       });
     }
   }
@@ -249,7 +248,12 @@ export class Tonic {
   async swapNear(amount: BN, swaps: SwapParamsV1[]) {
     return await this.functionCallWithOutcome({
       methodName: 'swap_near',
-      args: { swaps },
+      args: {
+        swaps: swaps.map((s) => ({
+          ...s,
+          min_output_token: s.min_output_token?.toString(),
+        })),
+      },
       attachedDeposit: amount,
       gas: MAX_GAS,
     });

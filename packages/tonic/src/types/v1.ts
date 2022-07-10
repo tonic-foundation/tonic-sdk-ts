@@ -97,7 +97,7 @@ export interface SwapParamsV1 {
   type: 'Swap';
   market_id: string;
   side: OrderSideV1;
-  min_output_token?: BN;
+  min_output_token?: BN | string;
 }
 
 /**
@@ -135,7 +135,7 @@ export interface OrderResultV1 {
   base_cancelled_quantity: BN;
 }
 
-export type FTMessage = { "action": "Swap", params: SwapParamsV1[] } | never;
+export type FTMessage = { action: 'Swap'; params: SwapParamsV1[] } | never;
 
 /**
  * On-chain data type.
@@ -249,11 +249,11 @@ export interface TokenInfo {
 export type TokenType =
   | { type: 'near' }
   | {
-    type: 'ft';
-    account_id: string;
-  }
+      type: 'ft';
+      account_id: string;
+    }
   | {
-    type: 'mft';
-    account_id: string;
-    subtoken_id: string;
-  };
+      type: 'mft';
+      account_id: string;
+      subtoken_id: string;
+    };
