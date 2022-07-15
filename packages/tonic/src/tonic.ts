@@ -259,6 +259,43 @@ export class Tonic {
     });
   }
 
+  buildSwapParams(
+    tokenId: string,
+    amount: BN,
+    swaps: SwapParamsV1[]
+  ): FunctionCallOptions {
+    if (tokenId.toUpperCase() === 'NEAR') {
+      return {
+        contractId: this.contractId,
+        methodName: 'swap_near',
+        args: {
+          swaps: swaps.map((s) => ({
+            ...s,
+            min_output_token: s.min_output_token?.toString(),
+          })),
+        },
+        attachedDeposit: amount,
+        gas: MAX_GAS,
+      };
+    } else {
+      const msg = swaps.map((s) => ({
+        ...s,
+        min_output_token: s.min_output_token?.toString(),
+      }));
+      return {
+        contractId: tokenId,
+        methodName: 'ft_transfer_call',
+        args: {
+          receiver_id: this.contractId,
+          amount: amount.toString(),
+          msg: msg.toString(),
+        },
+        attachedDeposit: amount,
+        gas: MAX_GAS,
+      };
+    }
+  }
+
   /**
    * Deposit native NEAR.
    */
