@@ -43,7 +43,8 @@ export default class Deposit extends BaseCommand {
       let tokenMetadata = await ftMetadata(this.account, tokenId);
       const res = await this.tonic.depositFt(
         tokenId,
-        decimalToBn(amount, tokenMetadata.decimals)
+        decimalToBn(amount, tokenMetadata.decimals),
+        ''
       );
       outcome = res.executionOutcome;
     }
