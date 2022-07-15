@@ -74,7 +74,7 @@ async function main() {
     });
   }
 
-  // Send the transaction. All open orders in the market will be canceled and 60
+  // Send the transaction. All open orders in the market will be cancelled and 60
   // new ones will be placed atomically.
   logTx((await tonic.executeBatch(batch)).executionOutcome);
 }
