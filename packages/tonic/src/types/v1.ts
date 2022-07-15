@@ -90,6 +90,8 @@ export type OrderSideV1 = 'Buy' | 'Sell';
  */
 export type OrderTypeV1 = 'Limit' | 'PostOnly' | 'Market';
 
+export type MarketState = 'Uninitialized' | 'Active' | 'Paused' | 'CancelOnly';
+
 /**
  * On-chain data type
  */
@@ -223,6 +225,7 @@ export interface MarketViewV1 {
   fees_accrued: string;
   max_orders_per_account: number;
   total_orders: number;
+  state: MarketState;
 }
 
 /**
