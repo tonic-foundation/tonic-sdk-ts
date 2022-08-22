@@ -189,14 +189,14 @@ export class Tonic {
     if (tokenId.toUpperCase() === 'NEAR') {
       return await this.depositNear(amount);
     } else {
-      return this.depositFt(tokenId, amount);
+      return this.depositFt(tokenId, amount, '');
     }
   }
 
   /**
    * Deposit NEP-141 token.
    */
-  async depositFt(tokenId: string, amount: BN, msg?: string | FTMessage) {
+  async depositFt(tokenId: string, amount: BN, msg: string | FTMessage) {
     const formattedMsg = typeof msg === 'string' ? msg : JSON.stringify(msg);
     return await ftTransferCall(this.account, tokenId, {
       receiverId: this.contractId,
