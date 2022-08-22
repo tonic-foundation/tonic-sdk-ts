@@ -1,4 +1,4 @@
-import { prepareNewOrderV1 } from './tonic';
+import { prepareNewOrderV1 } from './transaction';
 import { ActionV1, NewOrderParamsV1 } from './types/v1';
 
 export interface Prepare<T> {

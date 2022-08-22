@@ -1,3 +1,4 @@
+import { decimalToBn } from '@tonic-foundation/utils';
 import BN from 'bn.js';
 import { Contract } from 'near-api-js';
 import { Orderbook } from '..';
@@ -5,6 +6,16 @@ import { Orderbook } from '..';
 import { L2Order } from '../types';
 
 export const ZERO = new BN('0');
+
+export const ONE_TGAS = new BN(Math.pow(10, 12));
+export const NEAR_DECIMALS = 24;
+
+export function nearAmount(amount: number) {
+  return decimalToBn(amount, NEAR_DECIMALS);
+}
+
+export type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+export type AnyExcept<T = any, E = never> = T extends E ? never : T;
 
 export type ContractWithMethods<
   V extends ReadonlyArray<string> = [],

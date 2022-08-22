@@ -4,7 +4,7 @@ import {
   floorToBn,
 } from '@tonic-foundation/utils';
 import BN from 'bn.js';
-import { prepareNewOrderV1 } from '.';
+import { prepareNewOrderV1 } from './transaction';
 import { BatchActionV1, PrepareBatch } from './batch';
 import { getTokenId } from './token';
 import { Tonic } from './tonic';
@@ -15,6 +15,8 @@ import {
   NewOrderParamsV1,
   TokenType,
 } from './types/v1';
+
+import { placeOrderV1 } from './transaction';
 
 export interface NewOrderParams {
   orderType: OrderType;
@@ -147,14 +149,14 @@ export class Market {
   /**
    * Maximum number of allowed open orders per user account.
    */
-   get maxOrdersPerAccount(): number {
+  get maxOrdersPerAccount(): number {
     return this._inner.max_orders_per_account;
   }
 
   /**
    * Current number of open orders on the market (buys + sells).
    */
-   get totalOpenOrders(): number {
+  get totalOpenOrders(): number {
     return this._inner.total_orders;
   }
 
@@ -209,6 +211,15 @@ export class Market {
     return prepareNewOrderV1(order);
   }
 
+  // XXX HACK: not a good place for this
+  makePlaceOrderTransaction(params: NewOrderParams) {
+    return placeOrderV1(
+      this.tonic.contractId,
+      this.id,
+      this.toNewOrderParamsV1(params)
+    );
+  }
+
   async placeOrder(params: NewOrderParams) {
     return this.tonic.placeOrder(this.id, this.toNewOrderParamsV1(params));
   }
@@ -257,7 +268,11 @@ export class Market {
    * If round_trailing_decimals_up===true, the least
    * significant digit + trailing digits are rounded up their ceiling.
    */
-  priceNumberToBn(price: number, floor = true, round_trailing_decimals_up = false): BN {
+  priceNumberToBn(
+    price: number,
+    floor = true,
+    round_trailing_decimals_up = false
+  ): BN {
     let decimals = this.quoteDecimals;
     let priceBn = decimalToBn(price, decimals);
 
@@ -265,7 +280,7 @@ export class Market {
       // Compare BNs at the highest level of precision available
       // provided by 'number' type (16 digits after decimal point).
       let preciseBn = decimalToBn(price, 16);
-      let power = new BN(10).pow(new BN((16 - decimals)));
+      let power = new BN(10).pow(new BN(16 - decimals));
       if (priceBn.mul(power).lt(preciseBn)) {
         priceBn = priceBn.add(new BN(1));
       }

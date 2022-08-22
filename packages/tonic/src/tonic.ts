@@ -1,5 +1,6 @@
-import { decimalToBn, functionCallWithOutcome } from '@tonic-foundation/utils';
-import { storageDeposit, StorageDepositArgs } from '@tonic-foundation/storage';
+import { MAX_GAS } from '@tonic-foundation/utils';
+import { storageDeposit } from '@tonic-foundation/storage';
+import { StorageDepositArgs } from '@tonic-foundation/storage/lib/transaction';
 import { ftTransferCall } from '@tonic-foundation/token';
 import BN from 'bn.js';
 import { Account } from 'near-api-js';
@@ -18,7 +19,6 @@ import {
   toOrderBook,
 } from './types';
 import {
-  CreateMarketV1Params,
   MarketViewV1,
   NewOrderParamsV1,
   OpenLimitOrderV1,
@@ -28,23 +28,13 @@ import {
   ActionResultV1,
   FTMessage,
 } from './types/v1';
-import { groupOrdersByPriceLevel } from './util';
+import { groupOrdersByPriceLevel, PartialBy } from './util';
+import * as tonicTxn from './transaction';
+import { getTransactionLastResult } from 'near-api-js/lib/providers';
 
-const ONE_TGAS = new BN(Math.pow(10, 12));
-const MAX_GAS = tgasAmount(300);
-const NEAR_DECIMALS = 24;
-
-function tgasAmount(tgas: number) {
-  return new BN(tgas).mul(ONE_TGAS);
-}
-
-function nearAmount(amount: number) {
-  return decimalToBn(amount, NEAR_DECIMALS);
-}
-
-type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-type AnyExcept<T = any, E = never> = T extends E ? never : T;
-
+/**
+ * Tonic client. Expects that the Account parameter
+ */
 export class Tonic {
   private _contract: TonicContract;
 
@@ -68,10 +58,14 @@ export class Tonic {
   private async functionCallWithOutcome<T = any>(
     params: PartialBy<FunctionCallOptions, 'contractId'>
   ) {
-    return await functionCallWithOutcome<T>(this.account, {
+    const executionOutcome = await this.account.functionCall({
       contractId: this.contractId,
       ...params,
     });
+    return {
+      executionOutcome,
+      response: getTransactionLastResult(executionOutcome),
+    };
   }
 
   /**
@@ -79,14 +73,9 @@ export class Tonic {
    * information.
    */
   async executeBatch(batch: PrepareBatch) {
-    return await this.functionCallWithOutcome<ActionResultV1[]>({
-      methodName: 'execute',
-      args: {
-        actions: batch.prepare(),
-      },
-      gas: tgasAmount(300),
-      attachedDeposit: new BN(1),
-    });
+    return await this.functionCallWithOutcome<ActionResultV1[]>(
+      tonicTxn.batchV1(this.contractId, batch).toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -117,23 +106,11 @@ export class Tonic {
     takerFeeBaseRate: number;
     makerRebateBaseRate: number;
   }) {
-    const base_token = toInternalTokenId(params.baseTokenId);
-    const quote_token = toInternalTokenId(params.quoteTokenId);
-    const args: CreateMarketV1Params = {
-      base_token,
-      quote_token,
-      base_token_lot_size: params.baseTokenLotSize,
-      quote_token_lot_size: params.quoteTokenLotSize,
-      taker_fee_base_rate: params.takerFeeBaseRate,
-      maker_rebate_base_rate: params.makerRebateBaseRate,
-    };
-
-    return await this.functionCallWithOutcome<MarketId>({
-      methodName: 'create_market',
-      args: { args },
-      gas: MAX_GAS,
-      attachedDeposit: nearAmount(0.1),
-    });
+    return await this.functionCallWithOutcome<MarketId>(
+      tonicTxn
+        .createMarketV1(this.contractId, params)
+        .toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -143,14 +120,11 @@ export class Tonic {
    */
   async placeOrder(market_id: MarketId, order: NewOrderParamsV1) {
     const { response: r, executionOutcome } =
-      await this.functionCallWithOutcome<OrderResultV1>({
-        methodName: 'new_order',
-        args: {
-          market_id,
-          order: prepareNewOrderV1(order),
-        },
-        gas: MAX_GAS,
-      });
+      await this.functionCallWithOutcome<OrderResultV1>(
+        tonicTxn
+          .placeOrderV1(this.contractId, market_id, order)
+          .toAccountFunctionCallParams()
+      );
 
     return {
       response: {
@@ -169,11 +143,11 @@ export class Tonic {
    * Cancel an order.
    */
   async cancelOrder(market_id: MarketId, order_id: OrderId) {
-    return await this.functionCallWithOutcome<unknown>({
-      methodName: 'cancel_order',
-      args: { market_id, order_id },
-      gas: tgasAmount(100),
-    });
+    return await this.functionCallWithOutcome<unknown>(
+      tonicTxn
+        .cancelOrderV1(this.contractId, market_id, order_id)
+        .toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -190,11 +164,11 @@ export class Tonic {
    * Cancel all orders in a market.
    */
   async cancelAllOrders(market_id: MarketId) {
-    return await this.functionCallWithOutcome<unknown>({
-      methodName: 'cancel_all_orders',
-      args: { market_id },
-      gas: MAX_GAS,
-    });
+    return await this.functionCallWithOutcome<unknown>(
+      tonicTxn
+        .cancelAllOrdersV1(this.contractId, market_id)
+        .toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -231,6 +205,17 @@ export class Tonic {
     });
   }
 
+  /**
+   * Return function call parameters for a swap from an Fungible Token.
+   *
+   * Note: because swapping does not use the user's exchange balance, the caller
+   * is responsible for checking that the user has a storage deposit in the
+   * output token. Failed swaps due to missing storage deposit will not refund
+   * the user.
+   *
+   * @deprecated use `getSwapParams` and request a signature from the
+   * authenticated wallet to take advantage of multi-swap feature
+   */
   async swap(tokenId: string, amount: BN, swaps: SwapParamsV1[]) {
     if (tokenId.toUpperCase() === 'NEAR') {
       return await this.swapNear(amount, swaps);
@@ -245,6 +230,17 @@ export class Tonic {
     }
   }
 
+  /**
+   * Return function call parameters for a swap from native NEAR.
+   *
+   * Note: because swapping does not use the user's exchange balance, the caller
+   * is responsible for checking that the user has a storage deposit in the
+   * output token. Failed swaps due to missing storage deposit will not refund
+   * the user.
+   *
+   * @deprecated use `getSwapParams` and request a signature from the
+   * authenticated wallet to take advantage of multi-swap feature
+   */
   async swapNear(amount: BN, swaps: SwapParamsV1[]) {
     return await this.functionCallWithOutcome({
       methodName: 'swap_near',
@@ -263,12 +259,11 @@ export class Tonic {
    * Deposit native NEAR.
    */
   async depositNear(amount: BN) {
-    return await this.functionCallWithOutcome({
-      methodName: 'deposit_near',
-      args: {},
-      attachedDeposit: amount,
-      gas: MAX_GAS,
-    });
+    return await this.functionCallWithOutcome(
+      tonicTxn
+        .depositNearV1(this.contractId, amount)
+        .toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -294,26 +289,19 @@ export class Tonic {
   }
 
   async withdrawFt(tokenId: string, amount: BN) {
-    return this.functionCallWithOutcome({
-      methodName: 'withdraw_ft',
-      args: {
-        token: tokenId,
-        amount: amount.toString(),
-      },
-      gas: MAX_GAS,
-      attachedDeposit: new BN(1),
-    });
+    return this.functionCallWithOutcome(
+      tonicTxn
+        .withdrawFtV1(this.contractId, tokenId, amount)
+        .toAccountFunctionCallParams()
+    );
   }
 
   async withdrawNear(amount: BN) {
-    return this.functionCallWithOutcome({
-      methodName: 'withdraw_near',
-      args: {
-        amount: amount.toString(),
-      },
-      gas: MAX_GAS,
-      attachedDeposit: new BN(1),
-    });
+    return this.functionCallWithOutcome(
+      tonicTxn
+        .withdrawNearV1(this.contractId, amount)
+        .toAccountFunctionCallParams()
+    );
   }
 
   /**
@@ -391,13 +379,4 @@ export class Tonic {
 
     return ret;
   }
-}
-
-export function prepareNewOrderV1(params: NewOrderParamsV1): NewOrderParamsV1 {
-  return {
-    ...params,
-    max_spend: params.max_spend?.toString(),
-    limit_price: params.limit_price?.toString(),
-    quantity: params.quantity.toString(),
-  };
 }
