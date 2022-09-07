@@ -206,6 +206,17 @@ export class Tonic {
   }
 
   /**
+   * Deposit native NEAR.
+   */
+  async depositNear(amount: BN) {
+    return await this.functionCallWithOutcome(
+      tonicTxn
+        .depositNearV1(this.contractId, amount)
+        .toAccountFunctionCallParams()
+    );
+  }
+
+  /**
    * Return function call parameters for a swap from an Fungible Token.
    *
    * Note: because swapping does not use the user's exchange balance, the caller
@@ -253,17 +264,6 @@ export class Tonic {
       attachedDeposit: amount,
       gas: MAX_GAS,
     });
-  }
-
-  /**
-   * Deposit native NEAR.
-   */
-  async depositNear(amount: BN) {
-    return await this.functionCallWithOutcome(
-      tonicTxn
-        .depositNearV1(this.contractId, amount)
-        .toAccountFunctionCallParams()
-    );
   }
 
   /**

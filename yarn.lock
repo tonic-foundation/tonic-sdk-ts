@@ -838,11 +838,11 @@ __metadata:
     "@oclif/plugin-help": ^5
     "@oclif/plugin-plugins": ^2.0.1
     "@oclif/test": ^2
-    "@tonic-foundation/config": ^0.1.1
-    "@tonic-foundation/storage": ^0.1.1
-    "@tonic-foundation/token": ^0.1.1
-    "@tonic-foundation/tonic": 0.1.0
-    "@tonic-foundation/utils": ^0.1.1
+    "@tonic-foundation/config": ^1.0.0
+    "@tonic-foundation/storage": ^1.0.0
+    "@tonic-foundation/token": ^1.0.0
+    "@tonic-foundation/tonic": 1.0.0
+    "@tonic-foundation/utils": ^1.0.0
     "@types/bn.js": ^5.1.0
     "@types/chai": ^4
     "@types/cli-table": ^0.3.0
@@ -855,7 +855,7 @@ __metadata:
     eslint-config-oclif: ^4.0.0
     eslint-config-oclif-typescript: ^1.0.2
     mocha: ^9.2.2
-    near-api-js: ^0.45.1
+    near-api-js: ^1.0.0
     oclif: ^3.0.1
     shx: ^0.3.4
     ts-node: ^10.7.0
@@ -866,57 +866,48 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tonic-foundation/config@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@tonic-foundation/config@npm:0.0.5"
+"@tonic-foundation/config@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@tonic-foundation/config@npm:1.0.0"
   dependencies:
-    near-api-js: ^0.44.2
-  checksum: b7ef402613ed092a16b4da29c62f48b761d9f2307ec785d0b0d224cf97f33f8d54d651b4137f4290f1754085b52addf515a9e5a7ee36fe55833db8d35f79d7bf
+    near-api-js: ^1.0.0
+  checksum: c76ec3fee902340b7874d1130714c6c329a8748e30e77bbd4662d4c95186302482acd4c8b88e833f9314215efeb0b7dbb7dda7c4a36a3e7b7462735a3c6b8ba7
   languageName: node
   linkType: hard
 
-"@tonic-foundation/config@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tonic-foundation/config@npm:0.1.1"
+"@tonic-foundation/storage@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@tonic-foundation/storage@npm:1.0.0"
   dependencies:
-    near-api-js: ^0.45.1
-  checksum: 0b788d429274d07751492ca6b6430c26dd52e0e1b9d7a3e01de08f9d98b1e074273faf2c46b3a8242e21163aaf99c7360b03e13876327e5e5e37c956870074bb
-  languageName: node
-  linkType: hard
-
-"@tonic-foundation/storage@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tonic-foundation/storage@npm:0.1.1"
-  dependencies:
-    "@tonic-foundation/transaction": 0.1.1
-    "@tonic-foundation/utils": 0.1.1
+    "@tonic-foundation/transaction": 1.0.0
+    "@tonic-foundation/utils": 1.0.0
     bn.js: ^5.2.0
-    near-api-js: ^0.45.1
-  checksum: a2c4fdb2f773a3742c5f691a90afcd3e22fee6f1aaa8f5baf54413b746107f11877d1b71f3a7e71627c8963a719cf7c6e3c73aba7410ebaa4c8075867854afd9
+    near-api-js: ^1.0.0
+  checksum: 098a6160114c299dbe043442bddc68e20b06ab87df08cdb409e8c000c647348c3c7d7badb311b38963ca704943c79f4bc8e4b5365d4143eea1bf6bc3a7ce6199
   languageName: node
   linkType: hard
 
-"@tonic-foundation/token@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tonic-foundation/token@npm:0.1.1"
+"@tonic-foundation/token@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@tonic-foundation/token@npm:1.0.0"
   dependencies:
-    "@tonic-foundation/transaction": 0.1.1
-    "@tonic-foundation/utils": 0.1.1
+    "@tonic-foundation/transaction": 1.0.0
+    "@tonic-foundation/utils": 1.0.0
     bn.js: ^5.2.1
-    near-api-js: ^0.45.1
-  checksum: df28679670588eecef0e98ff49f94d08cc559eab4f6337a3f7f935eae4c22b28d81f2da931521c62ccd1b14dbf683f4f5d38f8e34dfb2aed74f376155b8bfe15
+    near-api-js: ^1.0.0
+  checksum: 3ec9cf58213d094160986c739af3edb38e4c09fa5762aeed83cc5b76ca7cbfc5fe2a6c39e7044434e42046b56f5aeb19f335a31097afd5cc23247f7cfaa24b80
   languageName: node
   linkType: hard
 
-"@tonic-foundation/tonic@0.1.0, @tonic-foundation/tonic@workspace:packages/tonic":
+"@tonic-foundation/tonic@1.0.0, @tonic-foundation/tonic@workspace:packages/tonic":
   version: 0.0.0-use.local
   resolution: "@tonic-foundation/tonic@workspace:packages/tonic"
   dependencies:
-    "@tonic-foundation/config": ^0.0.5
-    "@tonic-foundation/storage": ^0.1.1
-    "@tonic-foundation/token": ^0.1.1
-    "@tonic-foundation/transaction": ^0.1.1
-    "@tonic-foundation/utils": ^0.1.1
+    "@tonic-foundation/config": ^1.0.0
+    "@tonic-foundation/storage": ^1.0.0
+    "@tonic-foundation/token": ^1.0.0
+    "@tonic-foundation/transaction": ^1.0.0
+    "@tonic-foundation/utils": ^1.0.0
     "@tsconfig/recommended": ^1.0.1
     "@types/bn.js": ^5.1.0
     "@types/chai": ^4.3.1
@@ -926,31 +917,31 @@ __metadata:
     chai: ^4.3.6
     isomorphic-ws: ^4.0.1
     mocha: ^9.2.2
-    near-api-js: ^0.45.1
+    near-api-js: ^1.0.0
     ts-node: ^10.7.0
     typescript: ^4.6.3
     ws: ^8.5.0
   languageName: unknown
   linkType: soft
 
-"@tonic-foundation/transaction@npm:0.1.1, @tonic-foundation/transaction@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tonic-foundation/transaction@npm:0.1.1"
+"@tonic-foundation/transaction@npm:1.0.0, @tonic-foundation/transaction@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@tonic-foundation/transaction@npm:1.0.0"
   dependencies:
-    "@tonic-foundation/utils": 0.1.1
+    "@tonic-foundation/utils": 1.0.0
     bn.js: ^5.2.0
-    near-api-js: ^0.45.1
-  checksum: c1a7cf740a21ce9f4bdaf73f383af8c6bb009c699fe2f30dd8689672735d08e6f537d6d457616742a51e32be7ce21ab92fcdf95f000e7573924e7421e2f94c8a
+    near-api-js: ^1.0.0
+  checksum: 2ea60c61bc4c02f060718d816741b3aca23930ef2efe002801039986cf3838aa0f2f220b5d932f3e699c1452aad8db5c5b8981a2ef6a3c72db1751c0ef7cc5bb
   languageName: node
   linkType: hard
 
-"@tonic-foundation/utils@npm:0.1.1, @tonic-foundation/utils@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tonic-foundation/utils@npm:0.1.1"
+"@tonic-foundation/utils@npm:1.0.0, @tonic-foundation/utils@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@tonic-foundation/utils@npm:1.0.0"
   dependencies:
     bn.js: ^5.2.0
-    near-api-js: ^0.45.1
-  checksum: 88cbe72e3f39db8359fc0651525fc131667eea62db1c285682a47a09520af3602f0f2d2702163b7ead3dedf59cc5d0909fa6352cd2ea77616d3fed2d06c7fa3e
+    near-api-js: ^1.0.0
+  checksum: 3f6b07885f1fdc8a94e9db82eca715bf13d442f8dc150e709560b9edc6cdf737b628233585b7e3b96e6ac8244aa64384176cd7672a194c55eaa72eccb911e1d7
   languageName: node
   linkType: hard
 
@@ -1577,28 +1568,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bn.js@npm:5.2.0, bn.js@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "bn.js@npm:5.2.0"
-  checksum: 6117170393200f68b35a061ecbf55d01dd989302e7b3c798a3012354fa638d124f0b2f79e63f77be5556be80322a09c40339eda6413ba7468524c0b6d4b4cb7a
-  languageName: node
-  linkType: hard
-
-"bn.js@npm:^5.2.1":
+"bn.js@npm:5.2.1, bn.js@npm:^5.2.1":
   version: 5.2.1
   resolution: "bn.js@npm:5.2.1"
   checksum: 3dd8c8d38055fedfa95c1d5fc3c99f8dd547b36287b37768db0abab3c239711f88ff58d18d155dd8ad902b0b0cee973747b7ae20ea12a09473272b0201c9edd3
   languageName: node
   linkType: hard
 
-"borsh@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "borsh@npm:0.6.0"
-  dependencies:
-    bn.js: ^5.2.0
-    bs58: ^4.0.0
-    text-encoding-utf-8: ^1.0.2
-  checksum: 633986769e931dd9d156c0d52a315cd3bb0546c24df84e28fa04859cccbebd9107f1621bd594d4a63ba23c7cda2931a8d97e54952ee766a097d3c2434f80b009
+"bn.js@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "bn.js@npm:5.2.0"
+  checksum: 6117170393200f68b35a061ecbf55d01dd989302e7b3c798a3012354fa638d124f0b2f79e63f77be5556be80322a09c40339eda6413ba7468524c0b6d4b4cb7a
   languageName: node
   linkType: hard
 
@@ -4595,30 +4575,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"near-api-js@npm:^0.44.2":
-  version: 0.44.2
-  resolution: "near-api-js@npm:0.44.2"
+"near-api-js@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "near-api-js@npm:1.0.0"
   dependencies:
-    bn.js: 5.2.0
-    borsh: ^0.6.0
-    bs58: ^4.0.0
-    depd: ^2.0.0
-    error-polyfill: ^0.1.3
-    http-errors: ^1.7.2
-    js-sha256: ^0.9.0
-    mustache: ^4.0.0
-    node-fetch: ^2.6.1
-    text-encoding-utf-8: ^1.0.2
-    tweetnacl: ^1.0.1
-  checksum: d63625ab83d695d23a9126997355909fe141204c431a4818733050e1fcda11e5508dc70ff2e8fd55c1b2842908babd42fcf0ed4f3dc8c3fdb23ae422c497996d
-  languageName: node
-  linkType: hard
-
-"near-api-js@npm:^0.45.1":
-  version: 0.45.1
-  resolution: "near-api-js@npm:0.45.1"
-  dependencies:
-    bn.js: 5.2.0
+    bn.js: 5.2.1
     borsh: ^0.7.0
     bs58: ^4.0.0
     depd: ^2.0.0
@@ -4629,7 +4590,7 @@ __metadata:
     node-fetch: ^2.6.1
     text-encoding-utf-8: ^1.0.2
     tweetnacl: ^1.0.1
-  checksum: b684e16c6a0b845bed98ff273a992e6a7d04287ed90c6b2cf3b4bad30f62a906b0e2f6fa0776e4fc8d47bb46d2620f41e20fe909c7b2472e96dedf75fa8b4598
+  checksum: 6475af743de3a43653a8007ea990e5005d3cc4183f7a43387703e109cea0b35b2c572237866d6f9253f4c06b5fe040ed82bf73a6aa31374a9ef4fdd3cfab1536
   languageName: node
   linkType: hard
 
