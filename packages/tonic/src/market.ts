@@ -27,6 +27,7 @@ export interface NewOrderParams {
   quantity: number;
   maxSpend?: number;
   clientId?: number;
+  referrerId?: string;
 }
 
 /** L2 Order with BN values converted to decimal numbers */
@@ -207,6 +208,7 @@ export class Market {
         : undefined,
       client_id:
         typeof params.clientId === 'undefined' ? null : params.clientId, // potentially 0
+      referrer_id: params.referrerId,
     };
     return prepareNewOrderV1(order);
   }
