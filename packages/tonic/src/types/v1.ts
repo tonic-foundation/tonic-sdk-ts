@@ -100,6 +100,7 @@ export interface SwapParamsV1 {
   market_id: string;
   side: OrderSideV1;
   min_output_token?: BN | string;
+  referrer_id?: string;
 }
 
 /**
